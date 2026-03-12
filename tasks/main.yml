@@ -5,10 +5,16 @@
   - quba-viewer
   block:
 
+  # make sure user exists
+  - name: Check if user exists {{ ventoy_user }}
+    command: "getent passwd {{ ventoy_user }}"
+    changed_when: false
+
   # assertions
   - name: Assertions for quba role
     ansible.builtin.assert:
       that:
+      - quba_user != None
       - ansible_facts.distribution == "Debian"
 
   # apt
