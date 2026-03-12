@@ -1,0 +1,59 @@
+---
+- name: quba role
+  tags:
+  - quba
+  - quba-viewer
+  block:
+
+  # assertions
+  - name: Assertions for quba role
+    ansible.builtin.assert:
+      that:
+      - ansible_facts.distribution == "Debian"
+
+  # apt
+  - name: Apt install libfuse2t64
+    become: true
+    ansible.builtin.apt:
+      state: present
+      name: libfuse2t64
+
+  # mkdir
+  - name: Make sure directory exists {{ quba_appimage_dst | dirname }}
+    become: true
+    ansible.builtin.file:
+      path: "{{ quba_appimage_dst | dirname }}"
+      mode: u=rwx,g=rx,o=
+      owner: "{{ quba_user }}"
+      group: "{{ quba_user }}"
+      state: directory
+  
+  # cp appimage
+  - name: Copy {{ quba_appimage_src }} to {{ quba_appimage_dst }}
+    become: true
+    ansible.builtin.copy:
+      src: "{{ quba_appimage_src }}"
+      dest: "{{ quba_appimage_dst }}"
+      owner: "{{ quba_user }}"
+      group: "{{ quba_user }}"
+      mode: u=rwx,g=,o=
+
+  # cp icon
+  - name: Copy {{ quba_icon_src }} to {{ quba_icon_dst }}
+    become: true
+    ansible.builtin.copy:
+      src: "{{ quba_icon_src }}"
+      dest: "{{ quba_icon_dst }}"
+      owner: "{{ quba_user }}"
+      group: "{{ quba_user }}"
+      mode: u=rw,g=,o=
+
+  # template desktop file
+  - name: Template {{ quba_desktop_src }} to {{ quba_desktop_dst }}
+    become: true
+    ansible.builtin.template:
+      src: "{{ quba_desktop_src }}"
+      dest: "{{ quba_desktop_dst }}"
+      owner: "{{ quba_user }}"
+      group: "{{ quba_user }}"
+      mode: u=rw,g=,o=

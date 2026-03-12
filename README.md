@@ -1,18 +1,25 @@
+ATTENTION
+=========
+
+1. Download Quba.AppImage from this website: https://quba-viewer.org/
+2. Then place it into this role's file directory
+3. Set `quba_appimage_src` variable accordingly when using this role
+
+
 LINKS
 =====
 
 - https://quba-viewer.org/
 - https://docs.appimage.org/user-guide/run-appimages.html
 
-NOTES
-=====
 
-Mount AppImage: 
+HOW TO
+======
+
+Extract files from AppImage
+---------------------------
+
 ```sh
 ./path-to-appimage --appimage-mount
+cd tmp/.mountXXX
 ```
-
-ATT
-===
-- It's necessary to execute the appimage once from the GUI in order to integrate it into the desktop via the appimaged daemon
-- Call appimaged role before this one

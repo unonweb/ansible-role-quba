@@ -1,0 +1,8 @@
+---
+quba_user:
+quba_appimage_src: Quba-1.5.0.AppImage
+quba_appimage_dst: "/home/{{ quba_user }}/opt/quba/Quba.AppImage"
+quba_icon_src: quba.png
+quba_icon_dst: "/home/{{ quba_user }}/opt/quba/quba.png"
+quba_desktop_src: quba.desktop.j2
+quba_desktop_dst: "/home/{{ quba_user }}/.local/share/applications/quba.desktop"
